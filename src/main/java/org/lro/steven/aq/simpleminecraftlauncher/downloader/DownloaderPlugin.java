@@ -21,6 +21,7 @@ import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.downloader.Downloade
 import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.event.Event;
 import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.event.impl.DownloadEvent;
 import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.event.impl.LogEvent;
+import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.signalbus.EventConsumer;
 import org.lro.steven.aq.simpleminecraftlauncher.plugin.api.signalbus.SignalBus;
 
 import java.io.IOException;
@@ -32,8 +33,8 @@ public class DownloaderPlugin implements Plugin {
 
     @Override
     public void start(SignalBus signalBus) {
-        signalBus.connect("download.file", event -> handleFile(event, signalBus));
-        signalBus.connect("download.read", event -> handleRead(event, signalBus));
+        signalBus.connect("download.file", (EventConsumer) event -> handleFile(event, signalBus));
+        signalBus.connect("download.read", (EventConsumer) event -> handleRead(event, signalBus));
         signalBus.emit("log.info", LogEvent.of("Downloader plugin started"));
     }
 
